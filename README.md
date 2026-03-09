@@ -35,3 +35,4 @@
     * A desgin-ra nem jutott idő. 
 -   API
     * Az API dokumentációja elmaradtt.
+    * Pagination és rendezés nincs
