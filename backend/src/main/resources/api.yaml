@@ -1,0 +1,296 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: xRM
+servers:
+  - url: http://localhost/api/
+
+paths:
+  /report:
+      get:
+        summary: get report
+        operationId: getReport
+        tags:
+          - xRM
+        responses:
+          '200':
+            description: Report
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/reportDTO'
+
+  /responsible:
+      get:
+        summary: Get all responsible user
+        operationId: getAllResponsibleUser
+        tags:
+          - xRM
+        responses:
+          '200':
+            description: List of responsible user
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/responsibleDTO'
+
+  /task:
+      get:
+        summary: Get all Task.
+        operationId: getAllTask
+        tags:
+          - xRM
+        responses:
+          '200':
+            description: List of task
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/taskDTO'
+      post:
+        summary:  Create task
+        operationId: newTask
+        tags:
+          - xRM
+        requestBody:
+            description: description
+            required: true
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/taskDTO'
+        responses:
+          200:
+            description: description 
+          500:
+            description: description
+      put:
+        summary:  Update task
+        operationId: updateTask
+        tags:
+          - xRM
+        requestBody:
+            description: description
+            required: true
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/taskDTO'
+        responses:
+          200:
+            description: description
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/taskDTO'                                               
+  /task/{taskId}:
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: integer
+          required: true
+          description: ID of the task
+
+      delete:
+        summary: Delete task
+        operationId: deleteTask
+        tags:
+          - xRM
+        responses:
+          200:
+            description: description                      
+  /customers:
+      get:
+        summary: Get all customer.
+        operationId: getAllCustomer
+        tags:
+          - xRM
+        responses:
+          '200':
+            description: List of customers
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/customerDTO'
+      post:
+        summary:  Create customer
+        operationId: newCustomer
+        tags:
+          - xRM
+        requestBody:
+            description: description
+            required: true
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/customerDTO'
+        responses:
+          200:
+            description: description 
+          500:
+            description: description
+      put:
+        summary:  Update customer
+        operationId: updateCustomer
+        tags:
+          - xRM
+        requestBody:
+            description: description
+            required: true
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/customerDTO'          
+        responses:
+          200:
+            description: description
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/customerDTO'            
+  /customers/{customerId}:
+      parameters:
+        - in: path
+          name: customerId
+          schema:
+            type: integer
+          required: true
+          description: ID of the customer    
+      get:
+        summary: Get customer tasks.
+        operationId: getCustomerTasks
+        tags:
+          - xRM
+        responses:
+          200:
+            description: description
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:                
+                    $ref: '#/components/schemas/taskDetailsDTO'
+      delete:
+        summary: Delete customer
+        operationId: deleteCustomer
+        tags:
+          - xRM
+        responses:
+          200:
+            description: description                  
+components:
+  schemas:
+    responsibleDTO:
+      type: object
+      properties:
+        id:
+          type: number      
+        firstName:
+          type: string
+        lastName:
+          type: string
+
+    taskDTO:
+      type: object
+      properties:
+        id:
+          type: number      
+        subject:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        time:
+          type: number
+        responsible:
+          $ref: '#/components/schemas/responsibleDTO'
+        partner:
+          $ref: '#/components/schemas/customerDTO'
+
+    taskDetailsDTO:
+      type: object
+      properties:
+        subject:
+          type: string
+        type:
+          type: string
+        description:
+          type: string
+        time:
+          type: number
+
+    customerDTO:
+      type: object
+      properties:
+        id:
+          type: number      
+        name:
+          type: string
+        taxNumber:
+          type: string
+        address:
+          type: string
+        classification:
+          type: array
+          items:
+            $ref: '#/components/schemas/classificationDTO'          
+        status:
+          $ref: '#/components/schemas/customerStatusDTO'
+
+    customerDetailsDTO:
+      type: object
+      properties:
+        id:
+          type: number      
+        name:
+          type: string
+        taxNumber:
+          type: string
+        address:
+          type: string
+        classification:
+          type: array
+          items:
+            $ref: '#/components/schemas/classificationDTO'          
+        status:
+          $ref: '#/components/schemas/customerStatusDTO'   
+        task:
+          type: array
+          items:
+            $ref: '#/components/schemas/taskDTO'                   
+
+    customerStatusDTO:
+      type: string
+      enum:
+        - Active
+        - Inactive
+
+    classificationDTO:
+          type: string
+          enum:
+            - Active
+            - Foreign
+            - TOP
+            - Export
+
+    reportDTO:
+      type: object
+      properties:
+        name:
+          type: string      
+        time:
+          type: integer          
+          format: int64
+        partners:
+          type: integer
+          format: int64          

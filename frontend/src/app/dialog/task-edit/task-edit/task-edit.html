@@ -1,0 +1,40 @@
+<mat-dialog-content>
+    <form class="form"  [formGroup]="customerForm">
+        <mat-form-field>
+            <mat-label>Tárgy</mat-label>
+            <input matInput formControlName="subject" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Típus</mat-label>
+            <input matInput formControlName="type" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Leírás</mat-label>
+            <input matInput  formControlName="description" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Időtartam</mat-label>
+            <input matInput  formControlName="time" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Felelős neve</mat-label>
+            <mat-select formControlName="responsible">
+                @for (responsible of this.partnerService.resposibleData(); track responsible) {
+                <mat-option [value]="responsible">{{responsible.lastName+" "}}{{responsible.firstName}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Partner</mat-label>
+            <mat-select formControlName="partner">
+                @for (partner of this.partnerService.activeCustomerData(); track partner) {
+                <mat-option [value]="partner">{{partner.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button matButton (click)="close()">Bezárás</button>
+    <button matButton (click)="update()" [disabled]="!customerForm.valid" >Adatok frissítése</button>
+</mat-dialog-actions>

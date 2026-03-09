@@ -1,0 +1,15 @@
+<div class="topbar">
+  <div class="title">XRM</div>
+</div>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened>
+    <div class="menu">
+          <a [routerLink]="['/partners']">Partners</a>
+          <a [routerLink]="['/tasks']">Tasks</a>
+          <a [routerLink]="['/report']">Report</a>
+      </div>
+  </mat-drawer>
+  <mat-drawer-content>
+    <router-outlet></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>

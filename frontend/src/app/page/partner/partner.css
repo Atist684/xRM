@@ -1,0 +1,27 @@
+
+.table{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 4px 16px;
+}
+
+.data{
+    padding: 16px;
+    display: flex;
+    gap: 24px;
+}
+
+.edit{
+    display: flex;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.table-header{
+    display: flex;
+    gap: 16px;
+}
+.coll{
+    flex-grow: 1;
+}

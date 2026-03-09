@@ -1,0 +1,50 @@
+<div class="mat-elevation-z8">
+    <div>
+        <button matButton="outlined" (click)="newCustomer()" >Új feladat</button>
+    </div>
+  <table mat-table [dataSource]="partnerService.taskData()">
+    <ng-container matColumnDef="subject">
+      <th mat-header-cell *matHeaderCellDef> Tárgy </th>
+      <td mat-cell *matCellDef="let element"> {{element.subject}} </td>
+    </ng-container>
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef> Típus </th>
+      <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef> Leírás </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef> Időtartam (perc) </th>
+      <td mat-cell *matCellDef="let element"> {{element.time}} </td>
+    </ng-container>
+    <ng-container matColumnDef="responsible">
+      <th mat-header-cell *matHeaderCellDef> Felelős neve </th>
+      <td mat-cell *matCellDef="let element"> {{element.responsible.lastName+" "}}{{element.responsible.firstName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="partner">
+      <th mat-header-cell *matHeaderCellDef> Partner </th>
+      <td mat-cell *matCellDef="let element">
+        @if(element.partner !== null && element.partner !== undefined && element.partner !== ""){
+             {{element.partner.name}}
+        }@else{
+            TÖRÖLT
+        }
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>  </th>
+      <td mat-cell *matCellDef="let element">
+                <div class="coll edit">
+                <button matButton (click)="edit(element)">Modosít</button>
+                <button matButton (click)="view(element)">Megnéz</button>
+                <button matButton (click)="deleteTask(element)">Törlés</button>
+            </div>
+      </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

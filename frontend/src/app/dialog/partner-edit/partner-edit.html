@@ -1,0 +1,37 @@
+<mat-dialog-content>
+    <form class="form"  [formGroup]="customerForm">
+        <mat-form-field>
+            <mat-label>Név</mat-label>
+            <input matInput formControlName="name" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Adószám</mat-label>
+            <input matInput formControlName="taxNumber" />
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Székhely</mat-label>
+            <input matInput  formControlName="address" />
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>Státusz</mat-label>
+        <mat-select formControlName="status">
+            @for (status of customerStatus; track status) {
+            <mat-option [value]="status">{{status}}</mat-option>
+            }
+        </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+        <mat-label>Minősítés</mat-label>
+        <mat-select formControlName="classification" multiple>
+            @for (class of classification; track class) {
+            <mat-option [value]="class">{{class}}</mat-option>
+            }
+        </mat-select>
+        </mat-form-field>
+
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button matButton (click)="close()">Bezárás</button>
+    <button matButton (click)="update()" [disabled]="!customerForm.valid" >Adatok frissítése</button>
+</mat-dialog-actions>
