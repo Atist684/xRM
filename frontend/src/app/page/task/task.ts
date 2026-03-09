@@ -35,12 +35,6 @@ export class Task extends PageTemplate {
     });
   }
 
-    view(element: TaskDTO) {
-    this.dialog.open(TaskEditDialog, {
-      data: element
-    });
-  }
-
   classChanged(event: MatSelectChange<ClassificationDTO[]>){
     this.partnerService.filterData.set(event.value);
   }
